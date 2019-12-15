@@ -24,6 +24,12 @@ vmap <M-Down> ]egv
 
 autocmd FileType javascript set shiftwidth=2 | set softtabstop=2 | set tabstop=2 
 
+" ctrlp stuff
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
 " ale config
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
