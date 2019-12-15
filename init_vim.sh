@@ -29,4 +29,17 @@ fi
 
 git clone --depth 1 https://github.com/prettier/vim-prettier "${VIM_PRETTIER_PATH}"
 
+echo "Installing vim-unimpaired..."
+VIM_UNIMPAIRED_PATH="${VIM_START_PATH}/unimpaired"
+if [ ! -f $VIM_UNIMPAIRED_PATH ]; then
+    rm -rf $VIM_UNIMPAIRED_PATH
+fi
+
+git clone --depth 1 https://tpope.io/vim/unimpaired.git  "${VIM_UNIMPAIRED_PATH}"
+
+if [ -f "${HOME}/.vimrc" ]; then
+    echo "copying old .vimrc to .vimrc_old"
+    cp ${HOME}/.vimrc ${HOME}/.vimrc_old
+fi
+
 cp .vimrc ${HOME}/.vimrc

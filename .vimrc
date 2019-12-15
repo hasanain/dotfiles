@@ -4,7 +4,7 @@ set relativenumber
 syntax on
 set backspace=indent,eol,start
 set autoindent
-set ls=2
+set ls=2 " show status line
 
 " tab config
 set expandtab
@@ -15,12 +15,17 @@ set tabstop=4
 " esc map
 imap jk <Esc>
 
-" line bubble stuff
-nmap <M-Up> [e
-nmap <M-Down> ]e
+" tabs
+nmap tt :tabnext<CR>
+nmap tr :tabprevious<CR>
+nmap tn :tabnew<space>
 
-vmap <M-Up> [egv
-vmap <M-Down> ]egv
+" line bubble stuff
+nmap <C-k> [e
+nmap <C-j> ]e
+
+vmap <C-k> [egv
+vmap <C-j> ]egv
 
 autocmd FileType javascript set shiftwidth=2 | set softtabstop=2 | set tabstop=2 
 
