@@ -21,4 +21,12 @@ if [ ! -f $CTRLP_PATH ]; then
 fi
 git clone --depth 1 https://github.com/kien/ctrlp.vim.git "${CTRLP_PATH}"
 
+echo "Installing vim-prettier..."
+VIM_PRETTIER_PATH="${VIM_START_PATH}/vim-prettier"
+if [ ! -f $VIM_PRETTIER_PATH ]; then
+    rm -rf $VIM_PRETTIER_PATH
+fi
+
+git clone --depth 1 https://github.com/prettier/vim-prettier "${VIM_PRETTIER_PATH}"
+
 cp .vimrc ${HOME}/.vimrc
