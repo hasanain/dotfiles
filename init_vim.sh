@@ -11,14 +11,16 @@ function install {
     echo "installing $1..."
     PLUGIN_NAME=$(basename $1)
     PLUGIN_PATH="${VIM_START_PATH}/$PLUGIN_NAME"
-    if [[ ! -f $PLUGIN_PATH ]]; then
-        git clone --depth 1 https://github.com/$1.git "${PLUGIN_PATH}"
-    else
-        echo "$1 already installed. skipping..."
-    fi
+    git clone --depth 1 https://github.com/$1.git "${PLUGIN_PATH}"
 }
 
-PLUGIN_LIST=("dense-analysis/ale" "kien/ctrlp.vim" "prettier/vim-prettier" "tpope/vim-unimpaired")
+PLUGIN_LIST=(
+             "dense-analysis/ale" 
+             "kien/ctrlp.vim"
+             "prettier/vim-prettier"
+             "tpope/vim-unimpaired"
+             "sevko/vim-nand2tetris-syntax"
+             )
 for p in "${PLUGIN_LIST[@]}"; do
     install $p
 done
