@@ -3,43 +3,33 @@
 # init plugins path
 VIM_START_PATH="${HOME}/.vim/pack/gitplugins/start"
 if [ ! -f $VIM_START_PATH ]; then
-    mkdir -p ~/.vim/pack/git-plugins/start
+    echo "creating start folder"
+    mkdir -p $VIM_START_PATH
 fi
 
-echo "Installing ale..."
-ALE_PATH="${VIM_START_PATH}/ale"
-if [ ! -f $ALE_PATH ]; then
-    rm -rf $ALE_PATH
-fi
+function install {
+    echo "installing $1..."
+    PLUGIN_NAME=$(basename $1)
+    PLUGIN_PATH="${VIM_START_PATH}/$PLUGIN_NAME"
+    if [[ -f $PLUGIN_PATH ]]; then
+        git clone --depth 1 https://github.com/$1.git "${PLUGIN_PATH}"
+    else
+        echo "$1 already installed. skipping..."
+    fi
+}
 
-git clone --depth 1 https://github.com/dense-analysis/ale.git "${ALE_PATH}"
-
-echo "Installing ctrlp..."
-CTRLP_PATH="${VIM_START_PATH}/ctrlp.vim"
-if [ ! -f $CTRLP_PATH ]; then
-    rm -rf $CTRLP_PATH
-fi
-git clone --depth 1 https://github.com/kien/ctrlp.vim.git "${CTRLP_PATH}"
-
-echo "Installing vim-prettier..."
-VIM_PRETTIER_PATH="${VIM_START_PATH}/vim-prettier"
-if [ ! -f $VIM_PRETTIER_PATH ]; then
-    rm -rf $VIM_PRETTIER_PATH
-fi
-
-git clone --depth 1 https://github.com/prettier/vim-prettier "${VIM_PRETTIER_PATH}"
-
-echo "Installing vim-unimpaired..."
-VIM_UNIMPAIRED_PATH="${VIM_START_PATH}/unimpaired"
-if [ ! -f $VIM_UNIMPAIRED_PATH ]; then
-    rm -rf $VIM_UNIMPAIRED_PATH
-fi
-
-git clone --depth 1 https://tpope.io/vim/unimpaired.git  "${VIM_UNIMPAIRED_PATH}"
+PLUGIN_LIST=("dense-analysis/ale" "kien/ctrlp.vim" "prettier/vim-prettier" "tpope/vim-unimpaired")
+for p in "${PLUGIN_LIST[@]}"; do
+    install $p
+done
 
 if [ -f "${HOME}/.vimrc" ]; then
     echo "copying old .vimrc to .vimrc_old"
-    cp ${HOME}/.vimrc ${HOME}/.vimrc_old
+    cp ${HOME}/.vimrc ${HOME}/.vimrc_old_$(date +%s%N)
+    rm ${HOME}/.vimrc
 fi
 
-cp .vimrc ${HOME}/.vimrc
+./install_smyck.sh
+
+echo "linking the ${HOME}/.vimrc to $(pwd)/.vimrc"
+ln -s $(pwd)/.vimrc ${HOME}/.vimrc

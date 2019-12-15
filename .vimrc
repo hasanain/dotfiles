@@ -2,6 +2,7 @@ set number
 set relativenumber
 
 syntax on
+colorscheme smyck
 set backspace=indent,eol,start
 set autoindent
 set ls=2 " show status line
@@ -49,7 +50,8 @@ let g:ale_linters = {
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
 let g:ale_sign_error= '🔥'
-let g:ale_sign_warning= '🦚'
+let g:ale_sign_warning= '🌳'
+
 let g:ale_statusline_format = ['X %d', '? %d', '']
 
 
