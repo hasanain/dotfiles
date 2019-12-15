@@ -11,7 +11,7 @@ function install {
     echo "installing $1..."
     PLUGIN_NAME=$(basename $1)
     PLUGIN_PATH="${VIM_START_PATH}/$PLUGIN_NAME"
-    if [[ -f $PLUGIN_PATH ]]; then
+    if [[ ! -f $PLUGIN_PATH ]]; then
         git clone --depth 1 https://github.com/$1.git "${PLUGIN_PATH}"
     else
         echo "$1 already installed. skipping..."
